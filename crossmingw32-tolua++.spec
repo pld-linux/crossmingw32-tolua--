@@ -50,7 +50,7 @@ klas.
 tolua jest narzêdziem które znacznie upraszcza integracje kodu C/C++ z
 Lua. Bazuj±c na "oczyszczonych" plikach nag³ówkowych tolua
 automatycznie generuje kod umo¿liwiaj±cy Lua dostêp do struktur i
-funkcji C/C++. Dziêku u¿yciu API Lua 5.0, bie¿±ca wersja automatycznie
+funkcji C/C++. Dziêki u¿yciu API Lua 5.0, bie¿±ca wersja automatycznie
 mapuje sta³e, zewnêtrzne zmienne, funkcje, przestrzenie nazw, klasy i
 metody z C/C++ do Lua. Umo¿liwia równie¿ tworzenie modu³ów Lua.
 
