@@ -3,11 +3,12 @@ Summary:	Extended version of tolua, a tool to integrate C/C++ code with Lua - Mi
 Summary(pl):	Rozszerzona wersja tolua, narzêdzia integruj±cego kod C/C++ z Lua - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.0.2
-Release:	2
+Release:	3
 License:	Free
 Group:		Development/Tools
 Source0:	http://www.codenix.com/~tolua/%{realname}-%{version}.tar.bz2
 # Source0-md5:	0bfb13d7cf45c7738d2a93cc599886bb
+Requires:	crossmingw32-runtime
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-lua50
 BuildRequires:	crossmingw32-w32api
