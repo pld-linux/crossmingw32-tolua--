@@ -13,6 +13,7 @@ BuildRequires:	crossmingw32-lua50
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	scons
 Requires:	crossmingw32-runtime
+URL:		http://www.codenix.com/~tolua/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
