@@ -8,12 +8,12 @@ License:	Free
 Group:		Development/Tools
 Source0:	http://www.codenix.com/~tolua/%{realname}-%{version}.tar.bz2
 # Source0-md5:	003129c1b14a2a2ed5747f051eff6c3e
+URL:		http://www.codenix.com/~tolua/
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-lua50
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	scons
 Requires:	crossmingw32-runtime
-URL:		http://www.codenix.com/~tolua/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
