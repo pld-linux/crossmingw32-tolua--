@@ -1,6 +1,6 @@
 %define		realname	tolua++
 Summary:	Extended version of tolua, a tool to integrate C/C++ code with Lua - Mingw32 cross version
-Summary(pl):	Rozszerzona wersja tolua, narzêdzia integruj±cego kod C/C++ z Lua - wersja skro¶na dla Mingw32
+Summary(pl.UTF-8):   Rozszerzona wersja tolua, narzÄ™dzia integrujÄ…cego kod C/C++ z Lua - wersja skroÅ›na dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.0.4
 Release:	1
@@ -44,27 +44,27 @@ automatically maps C/C++ constants, external variables, functions,
 namespace, classes, and methods to Lua. It also provides facilities to
 create Lua modules.
 
-%description -l pl
-tolua++ jest rozszerzeniem tolua, narzêdzia integruj±cego kod C/C++ z
+%description -l pl.UTF-8
+tolua++ jest rozszerzeniem tolua, narzÄ™dzia integrujÄ…cego kod C/C++ z
 Lua. tolua++ zawiera nowe, zorientowane na c++ cechy takie jak wzorce
 klas.
 
-tolua jest narzêdziem które znacznie upraszcza integracje kodu C/C++ z
-Lua. Bazuj±c na "oczyszczonych" plikach nag³ówkowych tolua
-automatycznie generuje kod umo¿liwiaj±cy Lua dostêp do struktur i
-funkcji C/C++. Dziêki u¿yciu API Lua 5.0, bie¿±ca wersja automatycznie
-mapuje sta³e, zewnêtrzne zmienne, funkcje, przestrzenie nazw, klasy i
-metody z C/C++ do Lua. Umo¿liwia równie¿ tworzenie modu³ów Lua.
+tolua jest narzÄ™dziem ktÃ³re znacznie upraszcza integracje kodu C/C++ z
+Lua. BazujÄ…c na "oczyszczonych" plikach nagÅ‚Ã³wkowych tolua
+automatycznie generuje kod umoÅ¼liwiajÄ…cy Lua dostÄ™p do struktur i
+funkcji C/C++. DziÄ™ki uÅ¼yciu API Lua 5.0, bieÅ¼Ä…ca wersja automatycznie
+mapuje staÅ‚e, zewnÄ™trzne zmienne, funkcje, przestrzenie nazw, klasy i
+metody z C/C++ do Lua. UmoÅ¼liwia rÃ³wnieÅ¼ tworzenie moduÅ‚Ã³w Lua.
 
 %package dll
 Summary:	%{realname} - DLL library for Windows
-Summary(pl):	%{realname} - biblioteka DLL dla Windows
+Summary(pl.UTF-8):   %{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
 %{realname} - DLL library for Windows.
 
-%description dll -l pl
+%description dll -l pl.UTF-8
 %{realname} - biblioteka DLL dla Windows.
 
 %prep
