@@ -1,6 +1,6 @@
 %define		realname	tolua++
 Summary:	Extended version of tolua, a tool to integrate C/C++ code with Lua - Mingw32 cross version
-Summary(pl.UTF-8):   Rozszerzona wersja tolua, narzędzia integrującego kod C/C++ z Lua - wersja skrośna dla Mingw32
+Summary(pl.UTF-8):	Rozszerzona wersja tolua, narzędzia integrującego kod C/C++ z Lua - wersja skrośna dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.0.4
 Release:	1
@@ -58,7 +58,7 @@ metody z C/C++ do Lua. Umożliwia również tworzenie modułów Lua.
 
 %package dll
 Summary:	%{realname} - DLL library for Windows
-Summary(pl.UTF-8):   %{realname} - biblioteka DLL dla Windows
+Summary(pl.UTF-8):	%{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
