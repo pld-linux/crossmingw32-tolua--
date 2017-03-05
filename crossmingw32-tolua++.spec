@@ -3,7 +3,7 @@ Summary:	Extended version of tolua, a tool to integrate C/C++ code with Lua - Mi
 Summary(pl.UTF-8):	Rozszerzona wersja tolua, narzędzia integrującego kod C/C++ z Lua - wersja skrośna dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.0.4
-Release:	2
+Release:	3
 License:	Free
 Group:		Development/Tools
 Source0:	http://www.codenix.com/~tolua/%{realname}-%{version}.tar.bz2
@@ -18,16 +18,27 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
 
-%define		target		i386-mingw32
-%define		target_platform	i386-pc-mingw32
-%define		arch		%{_prefix}/%{target}
+%define		target			i386-mingw32
+%define		target_platform		i386-pc-mingw32
 
-%define		__cc		%{target}-gcc
-%define		__cxx		%{target}-g++
+%define		_sysprefix		/usr
+%define		_prefix			%{_sysprefix}/%{target}
+%define		_libdir			%{_prefix}/lib
+%define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
+%define		_dlldir			/usr/share/wine/windows/system
+%define		__cc			%{target}-gcc
+%define		__cxx			%{target}-g++
+%define		__pkgconfig_provides	%{nil}
+%define		__pkgconfig_requires	%{nil}
 
-%ifarch alpha sparc sparc64 sparcv9
+%define		_ssp_cflags		%{nil}
+%ifnarch %{ix86}
+# arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
+# -z options are invalid for mingw linker, most of -f options are Linux-specific
+%define		filterout_ld	-Wl,-z,.*
+%define		filterout_c	-f[-a-z0-9=]*
 
 %description
 tolua++ is an extension of tolua, a tool to integrate C/C++ code with
@@ -75,13 +86,13 @@ LD=%{target}-ld ; export LD
 AR=%{target}-ar ; export AR
 AS=%{target}-as ; export AS
 CROSS_COMPILE=1 ; export CROSS_COMPILE
-CPPFLAGS="-I%{arch}/include" ; export CPPFLAGS
+CPPFLAGS="-I%{_includedir}" ; export CPPFLAGS
 RANLIB=%{target}-ranlib ; export RANLIB
 LDSHARED="%{target}-gcc -shared" ; export LDSHARED
 TARGET="%{target}" ; export TARGET
 
 for i in src/lib/tolua_{event,is,map,push,to}.c
-do %{__cc} %{rpmcflags} $i -c -I%{arch}/include/lua50 -Iinclude
+do %{__cc} %{rpmcflags} $i -c -I%{_includedir}/lua50 -Iinclude
 done
 
 # static
@@ -100,21 +111,20 @@ $RANLIB tolua++.a
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{arch}/{include,lib}
-install -d $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
+install -d $RPM_BUILD_ROOT{%{_includedir},%{_libdir},%{_dlldir}}
 
-install include/tolua++.h $RPM_BUILD_ROOT%{arch}/include
-install *.a $RPM_BUILD_ROOT%{arch}/lib
-install *.dll $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
+install include/tolua++.h $RPM_BUILD_ROOT%{_includedir}
+install *.a $RPM_BUILD_ROOT%{_libdir}
+install *.dll $RPM_BUILD_ROOT%{_dlldir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{arch}/include/*
-%{arch}/lib/*
+%{_includedir}/tolua++.h
+%{_libdir}/*.a
 
 %files dll
 %defattr(644,root,root,755)
-%{_datadir}/wine/windows/system/*
+%{_dlldir}/*.dll
