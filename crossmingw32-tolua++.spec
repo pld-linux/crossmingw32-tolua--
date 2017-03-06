@@ -1,16 +1,16 @@
 %define		realname	tolua++
-Summary:	Extended version of tolua, a tool to integrate C/C++ code with Lua - Mingw32 cross version
-Summary(pl.UTF-8):	Rozszerzona wersja tolua, narzędzia integrującego kod C/C++ z Lua - wersja skrośna dla Mingw32
+Summary:	Extended version of tolua, a tool to integrate C/C++ code with Lua - MinGW32 cross version
+Summary(pl.UTF-8):	Rozszerzona wersja tolua, narzędzia integrującego kod C/C++ z Lua - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	1.0.4
-Release:	3
+Release:	4
 License:	Free
 Group:		Development/Tools
 Source0:	http://www.codenix.com/~tolua/%{realname}-%{version}.tar.bz2
 # Source0-md5:	8785100f7c9d9253cb47b530d97a32f6
 URL:		http://www.codenix.com/~tolua/
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	crossmingw32-lua50
+BuildRequires:	crossmingw32-lua50 >= 5.0
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	scons
 Requires:	crossmingw32-runtime
@@ -65,10 +65,23 @@ funkcji C/C++. Dzięki użyciu API Lua 5.0, bieżąca wersja automatycznie
 mapuje stałe, zewnętrzne zmienne, funkcje, przestrzenie nazw, klasy i
 metody z C/C++ do Lua. Umożliwia również tworzenie modułów Lua.
 
+%package static
+Summary:	Static tolua++ library - cross MinGW32 version
+Summary(pl.UTF-8):	Statyczna biblioteka tolua++ - wersja skrośna MinGW32
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description static
+Static tolua++ library - cross MinGW32 version.
+
+%description static -l pl.UTF-8
+Statyczna biblioteka tolua++ - wersja skrośna MinGW32.
+
 %package dll
 Summary:	%{realname} - DLL library for Windows
 Summary(pl.UTF-8):	%{realname} - biblioteka DLL dla Windows
 Group:		Applications/Emulators
+Requires:	crossmingw32-lua50-dll >= 5.0
 
 %description dll
 %{realname} - DLL library for Windows.
@@ -80,29 +93,21 @@ Group:		Applications/Emulators
 %setup -q -n %{realname}-%{version}
 
 %build
-CC=%{target}-gcc ; export CC
-CXX=%{target}-g++ ; export CXX
-LD=%{target}-ld ; export LD
 AR=%{target}-ar ; export AR
-AS=%{target}-as ; export AS
-CROSS_COMPILE=1 ; export CROSS_COMPILE
-CPPFLAGS="-I%{_includedir}" ; export CPPFLAGS
 RANLIB=%{target}-ranlib ; export RANLIB
-LDSHARED="%{target}-gcc -shared" ; export LDSHARED
-TARGET="%{target}" ; export TARGET
 
 for i in src/lib/tolua_{event,is,map,push,to}.c
 do %{__cc} %{rpmcflags} $i -c -I%{_includedir}/lua50 -Iinclude
 done
 
 # static
-$AR rcu tolua++.a *.o
-$RANLIB tolua++.a
+$AR rcu libtolua++.a *.o
+$RANLIB libtolua++.a
 
 # shared
 %{__cc} \
 	--shared *.o -llualib50 -llua50 -lm -o tolua++.dll \
-	-Wl,--enable-auto-image-base -Wl,--out-implib,tolua++.dll.a
+	-Wl,--enable-auto-image-base -Wl,--out-implib,libtolua++.dll.a
 
 %if 0%{!?debug:1}
 %{target}-strip *.dll
@@ -123,8 +128,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %{_includedir}/tolua++.h
-%{_libdir}/*.a
+%{_libdir}/libtolua++.dll.a
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libtolua++.a
 
 %files dll
 %defattr(644,root,root,755)
-%{_dlldir}/*.dll
+%{_dlldir}/tolua++.dll
